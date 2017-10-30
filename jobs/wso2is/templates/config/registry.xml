@@ -41,7 +41,7 @@
         <readOnly>false</readOnly>
         <registryRoot>/</registryRoot>
         <enableCache>true</enableCache>
-        <cacheId>jdbc:mysql://<%=wso2is.mysql.hostname%>:3306/<%=properties.wso2is.mysql.identity_db%>/cacheId>
+        <cacheId>jdbc:mysql://<%=properties.wso2is.mysql.hostname%>:3306/<%=properties.wso2is.mysql.identity_db%>/cacheId>
     </remoteInstance>
 
     <mount path="/_system/config" overwrite="true">
@@ -59,7 +59,7 @@
         <readOnly>false</readOnly>
         <registryRoot>/</registryRoot>
         <enableCache>true</enableCache>
-        <cacheId>jdbc:mysql://<%=wso2is.mysql.hostname%>:3306/<%=properties.wso2is.mysql.reg_db%></cacheId>
+        <cacheId>jdbc:mysql://<%=properties.wso2is.mysql.hostname%>:3306/<%=properties.wso2is.mysql.reg_db%></cacheId>
     </remoteInstance>
 
     <mount path="/_system/governance" overwrite="true">
