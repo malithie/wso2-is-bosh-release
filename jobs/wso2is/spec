@@ -47,41 +47,41 @@ properties:
     description: The password to use when authenticating with NATS
 
   wso2is.mysql.hostname:
-      description: wso2is mysql hostname
-  default: 192.168.50.1
+    description: wso2is mysql hostname
+    default: 192.168.50.1
   wso2is.mysql.um_db:
-      description: wso2apim mysql user management database name
-  default: WSO2_UM_DB
+    description: wso2apim mysql user management database name
+    default: WSO2_UM_DB
   wso2is.mysql.identity_db:
-      description: wso2is mysql identity and config registry database name
-  default: WSO2_IDENTITY_DB
+    description: wso2is mysql identity and config registry database name
+    default: WSO2_IDENTITY_DB
   wso2is.mysql.reg_db:
-      description: wso2is mysql governance registry database name
-  default: WSO2_GOV_REG_DB
+    description: wso2is mysql governance registry database name
+    default: WSO2_GOV_REG_DB
   wso2is.mysql.bps_db:
-      description: wso2is mysql bps database name
-  default: WSO2_BPS_DB
+    description: wso2is mysql bps database name
+    default: WSO2_BPS_DB
   wso2is.mysql.um_db.username:
     description: wso2is mysql um_db username
-  default: wso2umuser
+    default: wso2umuser
   wso2is.mysql.um_db.password:
     description: wso2is mysql um_db password
-  default: wso2umuser
+    default: wso2umuser
   wso2is.mysql.identity_db.username:
     description: wso2is mysql identity_db username
-  default: wso2identityuser
+    default: wso2identityuser
   wso2is.mysql.identity_db.password:
     description: wso2is mysql identity_db password
-  default: wso2identityuser
+    default: wso2identityuser
   wso2is.mysql.reg_db.username:
     description: wso2is mysql reg_db username
-  default: wso2registryuser
+    default: wso2registryuser
   wso2is.mysql.reg_db.password:
     description: wso2is mysql reg_db password
-  default: wso2registryuser
+    default: wso2registryuser
   wso2is.mysql.bps_db.username:
     description: wso2is mysql bps_db username
-  default: wso2bpsuser
+    default: wso2bpsuser
   wso2is.mysql.bps_db.password:
     description: wso2is mysql bps_db password
-  default: wso2bpsuser
+    default: wso2bpsuser
