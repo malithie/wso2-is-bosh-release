@@ -93,7 +93,7 @@ case $1 in
     export local_docker_ip=$(ip route get 1 | awk '{print $NF;exit}')
     axi2_xml_location=${WSO2_IS_HOME}/repository/conf/axis2/axis2.xml
     if [[ ! -z ${local_docker_ip} ]]; then
-      sed -i "s#<parameter name=\"localMemberHost\".*#<parameter name=\"localMemberHost\">${local_docker_ip}<\/parameter>#" "${axi2_xml_location}"
+      sed -i "s#<parameter\ name=\"localMemberHost\".*#<parameter\ name=\"localMemberHost\">${local_docker_ip}<\/parameter>#" "${axi2_xml_location}"
       if [[ $? == 0 ]]; then
         echo "Successfully updated localMemberHost with ${local_docker_ip}"
       else
