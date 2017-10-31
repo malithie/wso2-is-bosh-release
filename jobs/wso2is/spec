@@ -50,7 +50,7 @@ properties:
     description: wso2is mysql hostname
     default: 192.168.50.1
   wso2is.mysql.um_db:
-    description: wso2apim mysql user management database name
+    description: wso2is mysql user management database name
     default: WSO2_UM_DB
   wso2is.mysql.identity_db:
     description: wso2is mysql identity and config registry database name
@@ -61,27 +61,27 @@ properties:
   wso2is.mysql.bps_db:
     description: wso2is mysql bps database name
     default: WSO2_BPS_DB
-  wso2is.mysql.um_db.username:
+  wso2is.um_db.username:
     description: wso2is mysql um_db username
     default: wso2umuser
-  wso2is.mysql.um_db.password:
+  wso2is.um_db.password:
     description: wso2is mysql um_db password
     default: wso2umuser
-  wso2is.mysql.identity_db.username:
+  wso2is.identity_db.username:
     description: wso2is mysql identity_db username
     default: wso2identityuser
-  wso2is.mysql.identity_db.password:
+  wso2is.identity_db.password:
     description: wso2is mysql identity_db password
     default: wso2identityuser
-  wso2is.mysql.reg_db.username:
+  wso2is.reg_db.username:
     description: wso2is mysql reg_db username
     default: wso2registryuser
-  wso2is.mysql.reg_db.password:
+  wso2is.reg_db.password:
     description: wso2is mysql reg_db password
     default: wso2registryuser
-  wso2is.mysql.bps_db.username:
+  wso2is.bps_db.username:
     description: wso2is mysql bps_db username
     default: wso2bpsuser
-  wso2is.mysql.bps_db.password:
+  wso2is.bps_db.password:
     description: wso2is mysql bps_db password
     default: wso2bpsuser
