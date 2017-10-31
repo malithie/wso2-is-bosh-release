@@ -20,9 +20,9 @@ GOV_REG_USER="wso2registryuser"
 BPS_USER="wso2bpsuser"
 
 # WSO2IS deployment artifacts
-IS_PACK="wso2is-5.3.0*.zip"
-JDK="jdk-8u144-linux-x64.tar.gz"
-MYSQL_DRIVER="mysql-connector-java-5.1.44-bin.jar"
+IS_PACK="../wso2is-5.3.0*.zip"
+JDK="../jdk-8u144-linux-x64.tar.gz"
+MYSQL_DRIVER="../mysql-connector-java-5.1.44-bin.jar"
 
 # Deployment environment variables
 MYSQL_DOCKER_CONTAINER="mysql-5.7"
@@ -113,6 +113,7 @@ function setupDatabases {
 
 function deployBoshEnvironment {
 
+    cd ..
     echo -e "\e[32m>> Setting up BOSH environment  \e[0m"
     if [ ! -d bosh-deployment ]; then
         echo -e "\e[32m>>  Cloning https://github.com/cloudfoundry/bosh-deployment... \e[0m"
@@ -145,11 +146,11 @@ function deployBoshEnvironment {
     echo -e "\e[32m>> Login in... \e[0m"
     bosh -e vbox login --client=admin --client-secret=$(bosh int vbox/creds.yml --path /admin_password)
 
-    cd bosh-release/
+    cd wso2-is-bosh-release/bosh-release/
     echo -e "\e[32m>> Adding blobs... \e[0m"
-    sudo bosh -e vbox add-blob ../jdk-8u144-linux-x64.tar.gz oraclejdk/jdk-8u144-linux-x64.tar.gz
-    sudo bosh -e vbox add-blob ../mysql-connector-java-5.1.44-bin.jar mysqldriver/mysql-connector-java-5.1.44-bin.jar
-    sudo bosh -e vbox add-blob ../wso2is-5.3.0*.zip wso2is/wso2is-5.3.0.zip
+    sudo bosh -e vbox add-blob ../../jdk-8u144-linux-x64.tar.gz oraclejdk/jdk-8u144-linux-x64.tar.gz
+    sudo bosh -e vbox add-blob ../../mysql-connector-java-5.1.44-bin.jar mysqldriver/mysql-connector-java-5.1.44-bin.jar
+    sudo bosh -e vbox add-blob ../../wso2is-5.3.0*.zip wso2is/wso2is-5.3.0.zip
 
 
     echo -e "\e[32m>> Uploading blobs... \e[0m"
@@ -161,7 +162,7 @@ function deployBoshEnvironment {
     echo -e "\e[32m>> Uploading bosh release... \e[0m"
     sudo bosh -e vbox upload-release
 
-    cd ..
+    cd ../..
     if [ ! -f bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz ]; then
         echo -e "\e[32m>> Stemcell does not exist! Downloading... \e[0m"
         wget https://s3.amazonaws.com/bosh-core-stemcells/warden/bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz
@@ -170,7 +171,7 @@ function deployBoshEnvironment {
     echo -e "\e[32m>> Uploading Stemcell... \e[0m"
     bosh -e vbox upload-stemcell bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz
 
-    cd bosh-release/
+    cd wso2-is-bosh-release/bosh-release/
 
     echo -e "\e[32m>> Deploying bosh release... \e[0m"
     yes | bosh -e vbox -d wso2is deploy wso2is-manifest.yml
