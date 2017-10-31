@@ -35,9 +35,9 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://192.168.50.1:3306/WSO2_UM_DB</url>
-                    <username>wso2umuser</username>
-                    <password>wso2umuser</password>
+                    <url>jdbc:mysql://<%=properties.wso2is.mysql.hostname%>:3306/<%=properties.wso2is.mysql.um_db%></url>
+                    <username><%=properties.wso2is.um_db.username%></username>
+                    <password><%=properties.wso2is.um_db.password%></password>
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
                     <maxActive>80</maxActive>
                     <maxWait>60000</maxWait>
@@ -58,9 +58,9 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://192.168.50.1:3306/WSO2_GOV_REG_DB</url>
-                    <username>wso2registryuser</username>
-                    <password>wso2registryuser</password>
+                    <url>jdbc:mysql://<%=properties.wso2is.mysql.hostname%>:3306/<%=properties.wso2is.mysql.reg_db%></url>
+                    <username><%=properties.wso2is.reg_db.username%></username>
+                    <password><%=properties.wso2is.reg_db.password%></password>
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
                     <maxActive>80</maxActive>
                     <maxWait>60000</maxWait>
@@ -81,9 +81,9 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://192.168.50.1:3306/WSO2_IDENTITY_DB</url>
-                    <username>wso2identityuser</username>
-                    <password>wso2identityuser</password>
+                    <url>jdbc:mysql://<%=properties.wso2is.mysql.hostname%>:3306/<%=properties.wso2is.mysql.identity_db%></url>
+                    <username><%=properties.wso2is.identity_db.username%></username>
+                    <password><%=properties.wso2is.identity_db.password%></password>
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
                     <maxActive>80</maxActive>
                     <maxWait>60000</maxWait>
