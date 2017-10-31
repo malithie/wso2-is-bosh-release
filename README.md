@@ -52,8 +52,10 @@ MySQL datasource on BOSH Director
     ```
     bosh -e vbox -d wso2is ssh wso2is/08b2075d-c7e6-49f8-b223-12d989b734c2
     ```
-
-    ### WSO2 Identity Server URL: http://10.244.15.21:9763/carbon/
+    Access the management console with URL
+    ```
+    http://10.244.15.21:9763/carbon/
+    ```
 
 ## Additional Info
 
