@@ -27,8 +27,7 @@ MySQL datasource on BOSH Director
 
 4. Download MySQL JDBC driver mysql-connector-java-5.1.44-bin.jar binary and copy that to the workspace directory
 
-5. Get the WSO2 Identity Server 5.3.0 WUM updated distribution or the released [distribution](https://wso2
-.com/identity-and-access-management) and copy that to the workspace directory.
+5. Get the WSO2 Identity Server 5.3.0 WUM updated distribution or the released [distribution](https://wso2.com/identity-and-access-management) and copy that to the workspace directory.
 
 6. Give execute permissions to the wso2-is-bosh-release\setup.sh file within your worspace directory and execute
    ```
@@ -54,12 +53,12 @@ MySQL datasource on BOSH Director
     bosh -e vbox -d wso2is ssh wso2is/08b2075d-c7e6-49f8-b223-12d989b734c2
     ```
 
-    # WSO2 Identity Server URL: http://10.244.15.21:9763/carbon/
+    ### WSO2 Identity Server URL: http://10.244.15.21:9763/carbon/
 
 ## Additional Info
 
 Structure of the files of this repository will be as below :
-
+```
 ├── README.md
 ├── setup.sh
 ├── dbscripts
@@ -72,6 +71,7 @@ Structure of the files of this repository will be as below :
     ├── deploy.sh
     ├── export.sh
     └── wso2is-manifest.yml
+```
 
 ## References
 
