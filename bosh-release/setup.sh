@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -e -x
 
 # MYSQL connection details
 MYSQL_USERNAME="root"
@@ -20,9 +20,9 @@ GOV_REG_USER="wso2registryuser"
 BPS_USER="wso2bpsuser"
 
 # WSO2IS deployment artifacts
-IS_PACK="../wso2is-5.3.0*.zip"
-JDK="../jdk-8u144-linux-x64.tar.gz"
-MYSQL_DRIVER="../mysql-connector-java-5.1.44-bin.jar"
+IS_PACK="../../wso2is-5.3.0*.zip"
+JDK="../../jdk-8u144-linux-x64.tar.gz"
+MYSQL_DRIVER="../../mysql-connector-java-5.1.44-bin.jar"
 
 # Deployment environment variables
 MYSQL_DOCKER_CONTAINER="mysql-5.7"
@@ -113,20 +113,19 @@ function setupDatabases {
 
 function deployBoshEnvironment {
 
-    cd ..
     echo -e "\e[32m>> Setting up BOSH environment  \e[0m"
-    if [ ! -d bosh-deployment ]; then
+    if [ ! -d ../../bosh-deployment ]; then
         echo -e "\e[32m>>  Cloning https://github.com/cloudfoundry/bosh-deployment... \e[0m"
-        git clone https://github.com/cloudfoundry/bosh-deployment bosh-deployment
+        git clone https://github.com/cloudfoundry/bosh-deployment ../../bosh-deployment --depth 1
     fi
 
-    if [ ! -d vbox ]; then
+    if [ ! -d ../../vbox ]; then
         echo -e "\e[32m>>  Creating environment dir... \e[0m"
-        mkdir vbox
+        mkdir ../../vbox
     fi
 
     echo -e "\e[32m>> Creating environment... \e[0m"
-    sudo bosh create-env bosh-deployment/bosh.yml \
+    sudo bosh create-env ../../bosh-deployment/bosh.yml \
         --state vbox/state.json \
         -o bosh-deployment/virtualbox/cpi.yml \
         -o bosh-deployment/virtualbox/outbound-network.yml \
@@ -141,12 +140,11 @@ function deployBoshEnvironment {
         -v outbound_network_name=NatNetwork
 
     echo -e "\e[32m>> Setting alias for the environment... \e[0m"
-    bosh -e 192.168.50.6 alias-env vbox --ca-cert <(bosh int vbox/creds.yml --path /director_ssl/ca)
+    bosh -e 192.168.50.6 alias-env vbox --ca-cert <(bosh int ../../vbox/creds.yml --path /director_ssl/ca)
 
     echo -e "\e[32m>> Login in... \e[0m"
-    bosh -e vbox login --client=admin --client-secret=$(bosh int vbox/creds.yml --path /admin_password)
+    bosh -e vbox login --client=admin --client-secret=$(bosh int ../../vbox/creds.yml --path /admin_password)
 
-    cd wso2-is-bosh-release/bosh-release/
     echo -e "\e[32m>> Adding blobs... \e[0m"
     sudo bosh -e vbox add-blob ../../jdk-8u144-linux-x64.tar.gz oraclejdk/jdk-8u144-linux-x64.tar.gz
     sudo bosh -e vbox add-blob ../../mysql-connector-java-5.1.44-bin.jar mysqldriver/mysql-connector-java-5.1.44-bin.jar
@@ -163,21 +161,22 @@ function deployBoshEnvironment {
     sudo bosh -e vbox upload-release
 
     cd ../..
-    if [ ! -f bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz ]; then
+    if [ ! -f ../../bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz ]; then
         echo -e "\e[32m>> Stemcell does not exist! Downloading... \e[0m"
-        wget https://s3.amazonaws.com/bosh-core-stemcells/warden/bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz
+        wget -P ../../ https://s3.amazonaws.com/bosh-core-stemcells/warden/bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz
     fi
 
     echo -e "\e[32m>> Uploading Stemcell... \e[0m"
-    bosh -e vbox upload-stemcell bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz
-
-    cd wso2-is-bosh-release/bosh-release/
+    bosh -e vbox upload-stemcell ../../bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz
 
     echo -e "\e[32m>> Deploying bosh release... \e[0m"
     yes | bosh -e vbox -d wso2is deploy wso2is-manifest.yml
 
-    echo -e "\e[32m>> Adding route... \e[0m"
-    sudo route add -net 10.244.0.0/16 gw 192.168.50.6
+    routeExists=$(ip route show 10.244.0.0/16 | wc -l)
+    if [ ${routeExists} = 0 ]; then
+        echo -e "\e[32m>> Adding route... \e[0m"
+        sudo route add -net 10.244.0.0/16 gw 192.168.50.6
+    fi
 
     echo -e "\e[32m>> Listing VMs... \e[0m"
     bosh -e vbox vms
@@ -201,9 +200,8 @@ function undeployMySQL {
 
 function undeployBoshEnvironment {
 
-    cd ..
     echo -e "\e[32m>> Deleting existing environment... \e[0m"
-    sudo bosh delete-env bosh-deployment/bosh.yml \
+    sudo bosh delete-env ../../bosh-deployment/bosh.yml \
         --state vbox/state.json \
         -o bosh-deployment/virtualbox/cpi.yml \
         -o bosh-deployment/virtualbox/outbound-network.yml \

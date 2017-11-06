@@ -1,7 +1,7 @@
 # WSO2 Identity Server BOSH Release
 
 This repository includes a BOSH release that can be used to deploy WSO2 Identity Server 5.3.0 configured to use a
-MySQL datasource on BOSH Director
+MySQL datasource on BOSH Director.
 
 ## Prerequisites
 
