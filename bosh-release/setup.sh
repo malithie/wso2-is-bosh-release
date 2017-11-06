@@ -126,13 +126,13 @@ function deployBoshEnvironment {
 
     echo -e "\e[32m>> Creating environment... \e[0m"
     sudo bosh create-env ../../bosh-deployment/bosh.yml \
-        --state vbox/state.json \
-        -o bosh-deployment/virtualbox/cpi.yml \
-        -o bosh-deployment/virtualbox/outbound-network.yml \
-        -o bosh-deployment/bosh-lite.yml \
-        -o bosh-deployment/bosh-lite-runc.yml \
-        -o bosh-deployment/jumpbox-user.yml \
-        --vars-store vbox/creds.yml \
+        --state ../../vbox/state.json \
+        -o ../../bosh-deployment/virtualbox/cpi.yml \
+        -o ../../bosh-deployment/virtualbox/outbound-network.yml \
+        -o ../../bosh-deployment/bosh-lite.yml \
+        -o ../../bosh-deployment/bosh-lite-runc.yml \
+        -o ../../bosh-deployment/jumpbox-user.yml \
+        --vars-store ../../vbox/creds.yml \
         -v director_name="Bosh Lite Director" \
         -v internal_ip=192.168.50.6 \
         -v internal_gw=192.168.50.1 \
@@ -202,13 +202,13 @@ function undeployBoshEnvironment {
 
     echo -e "\e[32m>> Deleting existing environment... \e[0m"
     sudo bosh delete-env ../../bosh-deployment/bosh.yml \
-        --state vbox/state.json \
-        -o bosh-deployment/virtualbox/cpi.yml \
-        -o bosh-deployment/virtualbox/outbound-network.yml \
-        -o bosh-deployment/bosh-lite.yml \
-        -o bosh-deployment/bosh-lite-runc.yml \
-        -o bosh-deployment/jumpbox-user.yml \
-        --vars-store vbox/creds.yml \
+        --state ../../vbox/state.json \
+        -o ../../bosh-deployment/virtualbox/cpi.yml \
+        -o ../../bosh-deployment/virtualbox/outbound-network.yml \
+        -o ../../bosh-deployment/bosh-lite.yml \
+        -o ../../bosh-deployment/bosh-lite-runc.yml \
+        -o ../../bosh-deployment/jumpbox-user.yml \
+        --vars-store ../../vbox/creds.yml \
         -v director_name="Bosh Lite Director" \
         -v internal_ip=192.168.50.6 \
         -v internal_gw=192.168.50.1 \
