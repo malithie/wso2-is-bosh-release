@@ -34,7 +34,6 @@ properties:
   wso2is.address:
     description: wso2is address
 
-
   cf.apps_domain:
     description: Domain shared by the UAA and CF API eg 'bosh-lite.com'
   cf.nats.host:
