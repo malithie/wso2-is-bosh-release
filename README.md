@@ -20,7 +20,7 @@ MySQL datasource on BOSH Director.
 2. Navigate to the workspace directory and clone this repository
     ```
     cd wso2-is-bosh-workspace
-    git clone https://github.com/malithie/wso2-is-bosh-release
+    git clone https://github.com/malithie/wso2-is-bosh-release --depth 1
     ```
 
 3. Download JDK jdk-8u144-linux-x64.tar.gz binary and copy that to the workspace directory
@@ -31,7 +31,7 @@ MySQL datasource on BOSH Director.
 
 6. Give execute permissions to the wso2-is-bosh-release\setup.sh file within your worspace directory and execute
    ```
-   cd wso2-is-bosh-release
+   cd wso2-is-bosh-release/bosh-release
    chmod +x setup.sh
    ./setup.sh
    ```
