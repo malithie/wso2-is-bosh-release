@@ -27,27 +27,6 @@ MYSQL_DRIVER="../../mysql-connector-java-5.1.44-bin.jar"
 # Deployment environment variables
 MYSQL_DOCKER_CONTAINER="mysql-5.7"
 
-function usage {
-
-    command=$0
-    echo "usage: $command -[deploy|undeploy]"
-    echo "  -deploy     setup mysql and deploy wso2is in bosh"
-    echo "  -undeploy   cleanup mysql and wso2is bosh environment"
-}
-
-function deploy {
-
-    deployMySQL
-    setupDatabases
-    deployBoshEnvironment
-}
-
-function undeploy {
-
-    undeployMySQL
-    undeployBoshEnvironment
-}
-
 function deployMySQL {
 
     echo -e "\e[32m>> Setting up MYSQL  \e[0m"
@@ -160,7 +139,6 @@ function deployBoshEnvironment {
     echo -e "\e[32m>> Uploading bosh release... \e[0m"
     sudo bosh -e vbox upload-release
 
-    cd ../..
     if [ ! -f ../../bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz ]; then
         echo -e "\e[32m>> Stemcell does not exist! Downloading... \e[0m"
         wget -P ../../ https://s3.amazonaws.com/bosh-core-stemcells/warden/bosh-stemcell-3445.7-warden-boshlite-ubuntu-trusty-go_agent.tgz
@@ -216,44 +194,76 @@ function undeployBoshEnvironment {
         -v outbound_network_name=NatNetwork
 }
 
-if [ ! -f $IS_PACK ]; then
-    echo -e "\e[32m>> IS 5.3.0 pack not found! \e[0m"
-    exit 1
-fi
+function verifyPrerequisites {
 
-if [ ! -f $JDK ]; then
-    echo -e "\e[32m>> JDK distribution (jdk-8u144-linux-x64.tar.gz) not found! \e[0m"
-    exit 1
-fi
+    if [ ! -f $IS_PACK ]; then
+        echo -e "\e[32m>> IS 5.3.0 pack not found! \e[0m"
+        exit 1
+    fi
 
-if [ ! -f $MYSQL_DRIVER ]; then
-    echo -e "\e[32m>> MySQL Driver (mysql-connector-java-5.1.44-bin.jar) not found! \e[0m"
-    exit 1
-fi
+    if [ ! -f $JDK ]; then
+        echo -e "\e[32m>> JDK distribution (jdk-8u144-linux-x64.tar.gz) not found! \e[0m"
+        exit 1
+    fi
 
-if [ ! -x "$(command -v mysql)" ]; then
-    echo -e "\e[32m>> Please install MySQL client. \e[0m"
-    exit 1
-fi
+    if [ ! -f $MYSQL_DRIVER ]; then
+        echo -e "\e[32m>> MySQL Driver (mysql-connector-java-5.1.44-bin.jar) not found! \e[0m"
+        exit 1
+    fi
 
-if [ ! -x "$(command -v git)" ]; then
-    echo -e "\e[32m>> Please install Git client. \e[0m"
-    exit 1
-fi
+    if [ ! -x "$(command -v mysql)" ]; then
+        echo -e "\e[32m>> Please install MySQL client. \e[0m"
+        exit 1
+    fi
 
-if [ ! -x "$(command -v docker)" ]; then
-    echo -e "\e[32m>> Please install Docker. \e[0m"
-    exit 1
-fi
+    if [ ! -x "$(command -v git)" ]; then
+        echo -e "\e[32m>> Please install Git client. \e[0m"
+        exit 1
+    fi
 
-if [[ ($# = 0 || "$1" = "deploy" || "$1" = "-deploy" || "$1" = "--deploy") ]]; then
-    echo -e "\e[32m>> Deploy... \e[0m"
-    deploy
-elif [[ ("$1" = "undeploy" || "$1" = "-undeploy" || "$1" = "--undeploy") ]]; then
-    echo -e "\e[32m>> Undeploy... \e[0m"
-    undeploy
-else
-    echo -e "\e[32m>> Invalid command. Please check usage. \e[0m"
-    usage
-    exit 1
-fi
+    if [ ! -x "$(command -v docker)" ]; then
+        echo -e "\e[32m>> Please install Docker. \e[0m"
+        exit 1
+    fi
+}
+
+function usage {
+
+    command=$0
+    echo "usage: $command -[deploy|undeploy]"
+    echo "  -deploy     setup mysql and deploy wso2is in bosh"
+    echo "  -undeploy   cleanup mysql and wso2is bosh environment"
+}
+
+function deploy {
+
+    deployMySQL
+    setupDatabases
+    deployBoshEnvironment
+}
+
+function undeploy {
+
+    undeployMySQL
+    undeployBoshEnvironment
+}
+
+function execute {
+
+    verifyPrerequisites
+
+    if [[ ($# = 0 || "$1" = "deploy" || "$1" = "-deploy" || "$1" = "--deploy") ]]; then
+        echo -e "\e[32m>> Deploy... \e[0m"
+        deploy
+    elif [[ ("$1" = "undeploy" || "$1" = "-undeploy" || "$1" = "--undeploy") ]]; then
+        echo -e "\e[32m>> Undeploy... \e[0m"
+        undeploy
+    else
+        echo -e "\e[32m>> Invalid command. Please check usage. \e[0m"
+        usage
+        exit 1
+    fi
+}
+
+execute
+
