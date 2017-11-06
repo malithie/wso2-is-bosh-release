@@ -62,18 +62,20 @@ MySQL datasource on BOSH Director.
 Structure of the files of this repository will be as below :
 ```
 ├── README.md
-├── setup.sh
-├── dbscripts
 └── bosh-release
     ├── config
     ├── jobs
     ├── packages
     ├── src
+    ├── dbscripts
     ├── create.sh
     ├── deploy.sh
     ├── export.sh
+    ├── setup.sh
     └── wso2is-manifest.yml
 ```
+To know more about BOSH CLI commands to create a bosh environment, create a bosh release and upload, refer 
+bosh-release/setup.sh script. 
 
 ## References
 
