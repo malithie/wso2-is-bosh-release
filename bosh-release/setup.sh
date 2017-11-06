@@ -248,22 +248,19 @@ function undeploy {
     undeployBoshEnvironment
 }
 
-function execute {
 
-    verifyPrerequisites
+verifyPrerequisites
 
-    if [[ ($# = 0 || "$1" = "deploy" || "$1" = "-deploy" || "$1" = "--deploy") ]]; then
-        echo -e "\e[32m>> Deploy... \e[0m"
-        deploy
-    elif [[ ("$1" = "undeploy" || "$1" = "-undeploy" || "$1" = "--undeploy") ]]; then
-        echo -e "\e[32m>> Undeploy... \e[0m"
-        undeploy
-    else
-        echo -e "\e[32m>> Invalid command. Please check usage. \e[0m"
-        usage
-        exit 1
-    fi
-}
+if [[ ($# = 0 || "$1" = "deploy" || "$1" = "-deploy" || "$1" = "--deploy") ]]; then
+    echo -e "\e[32m>> Deploy... \e[0m"
+    deploy
+elif [[ ("$1" = "undeploy" || "$1" = "-undeploy" || "$1" = "--undeploy") ]]; then
+    echo -e "\e[32m>> Undeploy... \e[0m"
+    undeploy
+else
+    echo -e "\e[32m>> Invalid command. Please check usage. \e[0m"
+    usage
+    exit 1
+fi
 
-execute
 
