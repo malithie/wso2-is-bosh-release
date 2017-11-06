@@ -201,6 +201,7 @@ function undeployMySQL {
 
 function undeployBoshEnvironment {
 
+    cd ..
     echo -e "\e[32m>> Deleting existing environment... \e[0m"
     sudo bosh delete-env bosh-deployment/bosh.yml \
         --state vbox/state.json \
